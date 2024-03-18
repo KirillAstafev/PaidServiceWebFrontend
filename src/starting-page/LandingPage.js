@@ -6,7 +6,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import AppAppBar from './components/AppAppBar';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
-import CenterComponent from "./components/CenterComponent";
+import MedClinicText from "./components/MedClinicText";
 
 
 export default function LandingPage() {
@@ -23,7 +23,7 @@ export default function LandingPage() {
             <AppAppBar mode={mode} toggleColorMode={toggleColorMode}/>
             <Hero/>
             <Box sx={{bgcolor: 'background.default'}}>
-                <CenterComponent />
+                <MedClinicText/>
                 <Footer/>
             </Box>
         </ThemeProvider>
