@@ -4,9 +4,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import AppAppBar from './components/AppAppBar';
-import Hero from './components/Hero';
 import Footer from './components/Footer';
 import MedClinicText from "./components/MedClinicText";
+import MedClinicCaption from "./components/MedClinicCaption";
 
 
 export default function LandingPage() {
@@ -21,7 +21,7 @@ export default function LandingPage() {
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline/>
             <AppAppBar mode={mode} toggleColorMode={toggleColorMode}/>
-            <Hero/>
+            <MedClinicCaption/>
             <Box sx={{bgcolor: 'background.default'}}>
                 <MedClinicText/>
                 <Footer/>

@@ -38,55 +38,6 @@ export default function Footer() {
             <Box
                 sx={{
                     display: 'flex',
-                    flexDirection: {xs: 'column', sm: 'row'},
-                    width: '100%',
-                    justifyContent: 'space-between',
-                }}
-            >
-                <Box
-                    sx={{
-                        display: {xs: 'none', sm: 'flex'},
-                        flexDirection: 'column',
-                        gap: 1,
-                    }}
-                >
-                    <Typography variant="body2" fontWeight={600}>
-                        Company
-                    </Typography>
-                    <Link color="text.secondary" href="#">
-                        About us
-                    </Link>
-                    <Link color="text.secondary" href="#">
-                        Careers
-                    </Link>
-                    <Link color="text.secondary" href="#">
-                        Press
-                    </Link>
-                </Box>
-                <Box
-                    sx={{
-                        display: {xs: 'none', sm: 'flex'},
-                        flexDirection: 'column',
-                        gap: 1,
-                    }}
-                >
-                    <Typography variant="body2" fontWeight={600}>
-                        Legal
-                    </Typography>
-                    <Link color="text.secondary" href="#">
-                        Terms
-                    </Link>
-                    <Link color="text.secondary" href="#">
-                        Privacy
-                    </Link>
-                    <Link color="text.secondary" href="#">
-                        Contact
-                    </Link>
-                </Box>
-            </Box>
-            <Box
-                sx={{
-                    display: 'flex',
                     justifyContent: 'space-between',
                     pt: {xs: 4, sm: 8},
                     width: '100%',

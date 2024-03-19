@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-export default function Hero() {
+export default function MedClinicCaption() {
   return (
     <Box
       id="hero"
