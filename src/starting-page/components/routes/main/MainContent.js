@@ -1,12 +1,13 @@
+import MainCaption from "./MainCaption";
+import MainText from "./MainText";
 import Box from "@mui/material/Box";
-import MedClinicCaption from "./MedClinicCaption";
-import MedClinicText from "./MedClinicText";
+import * as React from "react";
 
 export default function MainContent() {
     return (
         <Box sx={{bgcolor: 'background.default'}}>
-            <MedClinicCaption/>
-            <MedClinicText/>
+            <MainCaption/>
+            <MainText/>
         </Box>
     );
 }

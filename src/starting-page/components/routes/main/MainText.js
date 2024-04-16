@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-export default function MedClinicText() {
+export default function MainText() {
     return (
         <Container
             sx={{

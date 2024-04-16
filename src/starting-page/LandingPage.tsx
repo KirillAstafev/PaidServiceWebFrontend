@@ -4,7 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import AppAppBar from './components/AppAppBar';
 import Footer from './components/Footer';
-import MainContent from "./components/MainContent";
+import {Outlet} from "react-router-dom";
 
 export default function LandingPage() {
   const [mode, setMode] = React.useState<PaletteMode>('light');
@@ -18,7 +18,7 @@ export default function LandingPage() {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
         <AppAppBar mode={mode} toggleColorMode={toggleColorMode}/>
-        <MainContent/>
+        <Outlet/>
         <Footer/>
     </ThemeProvider>
   );

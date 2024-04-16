@@ -5,9 +5,10 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-export default function MedClinicCaption() {
+export default function MainCaption() {
   return (
     <Box
       id="hero"
@@ -32,8 +33,8 @@ export default function MedClinicCaption() {
       >
         <Stack spacing={2} useFlexGap sx={{ width: { xs: '100%', sm: '70%' } }}>
           <Typography
-            component="h3"
-            variant="h3"
+            component="h1"
+            variant="h1"
             sx={{
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
@@ -41,11 +42,22 @@ export default function MedClinicCaption() {
               textAlign: 'center',
             }}
           >
-            Стоматологическая клиника MedClinic -
-              стоматология в Липецке
+            Our latest&nbsp;
+            <Typography
+              component="span"
+              variant="h1"
+              sx={{
+                color: (theme) =>
+                  theme.palette.mode === 'light' ? 'primary.main' : 'primary.light',
+              }}
+            >
+              products
+            </Typography>
           </Typography>
-          <Typography variant="h6" textAlign="center" color="text.secondary">
-            Не теряйте время - записаться на приём можно прямо сейчас
+          <Typography variant="body1" textAlign="center" color="text.secondary">
+            Explore our cutting-edge dashboard, delivering high-quality solutions
+            tailored to your needs. <br />
+            Elevate your experience with top-tier features and services.
           </Typography>
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
@@ -54,15 +66,26 @@ export default function MedClinicCaption() {
             useFlexGap
             sx={{ pt: 2, width: { xs: '100%', sm: 'auto' } }}
           >
+            <TextField
+              id="outlined-basic"
+              hiddenLabel
+              size="small"
+              variant="outlined"
+              aria-label="Enter your email address"
+              placeholder="Your email address"
+              inputProps={{
+                autocomplete: 'off',
+                ariaLabel: 'Enter your email address',
+              }}
+            />
             <Button variant="contained" color="primary">
-              Записаться на приём
+              Start now
             </Button>
           </Stack>
           <Typography variant="caption" textAlign="center" sx={{ opacity: 0.8 }}>
-            Пользуясь услугами нашей клиники, вы соглашаетесь на использование Ваших персональных данных
-              согласно&nbsp;
+            By clicking &quot;Start now&quot; you agree to our&nbsp;
             <Link href="#" color="primary">
-              Нормативным документам
+              Terms & Conditions
             </Link>
             .
           </Typography>
