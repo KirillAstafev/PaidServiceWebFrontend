@@ -1,12 +1,10 @@
 import * as React from 'react';
 
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import AppAppBar from './components/AppAppBar';
 import Footer from './components/Footer';
-import MedClinicText from "./components/MedClinicText";
-import MedClinicCaption from "./components/MedClinicCaption";
+import MainContent from "./components/MainContent";
 
 
 export default function LandingPage() {
@@ -21,11 +19,8 @@ export default function LandingPage() {
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline/>
             <AppAppBar mode={mode} toggleColorMode={toggleColorMode}/>
-            <MedClinicCaption/>
-            <Box sx={{bgcolor: 'background.default'}}>
-                <MedClinicText/>
-                <Footer/>
-            </Box>
+            <MainContent/>
+            <Footer/>
         </ThemeProvider>
     );
 }
