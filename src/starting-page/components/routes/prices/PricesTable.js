@@ -5,17 +5,24 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import {useEffect, useState} from "react";
 
 export default function PricesTable() {
-    const prices = [
-        {id: 1, serviceName: 'service1', price: 500},
-        {id: 2, serviceName: 'service2', price: 1000},
-        {id: 3, serviceName: 'service3', price: 800}
-    ];
+    const [services, setServices] = useState([]);
+
+    useEffect(() => {
+        loadServices();
+    }, []);
+
+    const loadServices = () => {
+        fetch('http://localhost:8080/paid-services/services')
+            .then(response => response.json())
+            .then(data => setServices(data));
+    };
 
     const columns = [
-        {field: 'serviceName', headerName: 'Мед.услуга', width: 600, headerAlign: 'center', align: 'center'},
-        {field: 'price', headerName: 'Цена (руб.)', width: 200, headerAlign: 'center', align: 'center'}
+        {field: 'name', headerName: 'Мед.услуга', width: 500, headerAlign: 'center', align: 'center'},
+        {field: 'price', headerName: 'Цена (руб.)', width: 300, headerAlign: 'center', align: 'center'}
     ];
 
     return (
@@ -26,7 +33,7 @@ export default function PricesTable() {
                     theme.palette.mode === 'light'
                         ? 'linear-gradient(180deg, #CEE5FD, #FFF)'
                         : `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
-                backgroundSize: '100% 20%',
+                backgroundSize: '100% 50%',
                 backgroundRepeat: 'no-repeat',
             })}
         >
@@ -54,8 +61,8 @@ export default function PricesTable() {
                     </Typography>
                     <DataGrid
                         columns={columns}
-                        rows={prices}
-                        hideFooterSelectedRowCount={true}
+                        rows={services}
+                        hideFooter={true}
                     />
                 </Stack>
             </Container>
