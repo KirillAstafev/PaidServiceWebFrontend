@@ -105,9 +105,11 @@ function AppAppBar({mode, toggleColorMode}) {
                                     onClick={() => scrollToSection('highlights')}
                                     sx={{py: '6px', px: '12px'}}
                                 >
-                                    <Typography variant="body2" color="text.primary">
-                                        Нормативные документы
-                                    </Typography>
+                                    <Link to={"/docs"} className="App-link">
+                                        <Typography variant="body2" color="text.primary">
+                                            Нормативные документы
+                                        </Typography>
+                                    </Link>
                                 </MenuItem>
                             </Box>
                         </Box>

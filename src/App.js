@@ -3,6 +3,7 @@ import LandingPage from "./starting-page/LandingPage";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import MainContent from "./starting-page/components/routes/main/MainContent";
 import PricesTable from "./starting-page/components/routes/prices/PricesTable";
+import DocumentList from "./starting-page/components/routes/documents/DocumentList";
 
 const router = createBrowserRouter(
     [
@@ -17,6 +18,10 @@ const router = createBrowserRouter(
                 {
                     path: "/prices",
                     element: <PricesTable/>
+                },
+                {
+                    path: "/docs",
+                    element: <DocumentList/>
                 }
             ]
         }
