@@ -21,7 +21,7 @@ export default function PricesTable() {
     };
 
     const columns = [
-        {field: 'name', headerName: 'Мед.услуга', width: 500, headerAlign: 'center', align: 'center'},
+        {field: 'name', headerName: 'Мед.услуга', width: 600, headerAlign: 'center', align: 'center'},
         {field: 'price', headerName: 'Цена (руб.)', width: 300, headerAlign: 'center', align: 'center'}
     ];
 
@@ -46,7 +46,7 @@ export default function PricesTable() {
                     pb: {xs: 8, sm: 12},
                 }}
             >
-                <Stack spacing={2} useFlexGap sx={{width: {xs: '100%', sm: '70%'}}}>
+                <Stack spacing={2} useFlexGap sx={{width: {xs: '100%', sm: '80%'}}}>
                     <Typography
                         component="h3"
                         variant="h3"
