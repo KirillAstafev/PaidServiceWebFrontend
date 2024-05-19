@@ -87,12 +87,13 @@ function AppAppBar({mode, toggleColorMode}) {
                                     </Link>
                                 </MenuItem>
                                 <MenuItem
-                                    onClick={() => scrollToSection('features')}
                                     sx={{py: '6px', px: '12px'}}
                                 >
-                                    <Typography variant="body2" color="text.primary">
-                                        Запись на приём
-                                    </Typography>
+                                    <Link to={"/appointments"} className="App-link">
+                                        <Typography variant="body2" color="text.primary">
+                                            Запись на приём
+                                        </Typography>
+                                    </Link>
                                 </MenuItem>
                                 <MenuItem sx={{py: '6px', px: '12px'}}>
                                     <Link to={"/prices"} className="App-link">
@@ -102,7 +103,6 @@ function AppAppBar({mode, toggleColorMode}) {
                                     </Link>
                                 </MenuItem>
                                 <MenuItem
-                                    onClick={() => scrollToSection('highlights')}
                                     sx={{py: '6px', px: '12px'}}
                                 >
                                     <Link to={"/docs"} className="App-link">
@@ -196,8 +196,7 @@ function AppAppBar({mode, toggleColorMode}) {
                 </Container>
             </AppBar>
         </div>
-    )
-        ;
+    );
 }
 
 AppAppBar.propTypes = {
