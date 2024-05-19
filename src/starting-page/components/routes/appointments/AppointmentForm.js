@@ -8,10 +8,28 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {Autocomplete} from "@mui/material";
+import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import 'dayjs/locale/ru';
 
 export default function AppointmentForm() {
     const [services, setServices] = useState([]);
     const [staffs, setStaffs] = useState([]);
+
+    const [patient, setPatient] = useState({
+        id: {},
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        snils: '',
+        phoneNumber: ''
+    })
+    const [visitation, setVisitation] = useState({
+        patient: patient,
+        staff: {},
+        medicalService: {},
+        dateTime: {}
+    })
 
     useEffect(() => {
         loadServices();
@@ -32,7 +50,6 @@ export default function AppointmentForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
     };
 
     return (
@@ -100,6 +117,9 @@ export default function AppointmentForm() {
                                 disablePortal
                                 fullWidth
                                 id="medicalService"
+                                onChange={(event, value) => {
+                                    setSelectedService(value);
+                                }}
                                 options={services}
                                 getOptionLabel={option => option.name}
                                 renderInput={(params) => <TextField {...params} label="Мед.услуга"/>}
@@ -115,6 +135,9 @@ export default function AppointmentForm() {
                                 disablePortal
                                 fullWidth
                                 id="staff"
+                                onChange={(event, value) => {
+                                    setSelectedStaff(value);
+                                }}
                                 options={staffs}
                                 getOptionLabel={option => {
                                     return `${option.person.lastName} ${option.person.firstName[0]}.${option.person.middleName[0] ?? ""} (${option.specialities[0].name})`;
@@ -128,6 +151,11 @@ export default function AppointmentForm() {
                                     </Box>
                                 )}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"ru"}>
+                                <DateTimePicker label="Дата и время записи"/>
+                            </LocalizationProvider>
                         </Grid>
                     </Grid>
                     <Button
