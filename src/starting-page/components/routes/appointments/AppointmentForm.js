@@ -9,27 +9,29 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {Autocomplete} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/ru';
+import axios from "axios";
+import {redirect} from "react-router-dom";
 
 export default function AppointmentForm() {
     const [services, setServices] = useState([]);
     const [staffs, setStaffs] = useState([]);
 
-    const [patient, setPatient] = useState({
-        id: {},
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        snils: '',
-        phoneNumber: ''
-    })
     const [visitation, setVisitation] = useState({
-        patient: patient,
+        id: 0,
+        patient: {
+            id: 0,
+            firstName: '',
+            middleName: '',
+            lastName: '',
+            snils: '',
+            phoneNumber: ''
+        },
         staff: {},
         medicalService: {},
         dateTime: {}
-    })
+    });
 
     useEffect(() => {
         loadServices();
@@ -48,9 +50,28 @@ export default function AppointmentForm() {
             .then(data => setStaffs(data));
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    };
+    async function handleSubmit() {
+        const newVisitation = {...visitation};
+
+        try {
+            const patientDataResponse = await axios
+                .get(`http://localhost:8080/paid-services/persons?snils=${visitation.patient.snils}`);
+
+            newVisitation.patient = {...patientDataResponse.data};
+            newVisitation.patient.id = patientDataResponse.data.id;
+        } catch (error) {
+            const newPatientResponse = await axios
+                .post('http://localhost:8080/paid-services/persons', visitation.patient);
+
+            newVisitation.patient = {...visitation.patient};
+            newVisitation.patient.id = newPatientResponse.data;
+        } finally {
+            axios.post('http://localhost:8080/paid-services/visitations', newVisitation)
+                .then(response => console.log(response.data));
+
+            redirect("/")
+        }
+    }
 
     return (
         <Container maxWidth="xs">
@@ -75,6 +96,10 @@ export default function AppointmentForm() {
                                 fullWidth
                                 id="firstName"
                                 label="Имя"
+                                onChange={(event) => {
+                                    setVisitation({...visitation,
+                                        patient: {...visitation.patient, firstName: event.target.value}});
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -83,6 +108,10 @@ export default function AppointmentForm() {
                                 id="middleName"
                                 label="Отчество (при наличии)"
                                 name="middleName"
+                                onChange={(event) => {
+                                    setVisitation({...visitation,
+                                        patient: {...visitation.patient, middleName: event.target.value}});
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -92,6 +121,10 @@ export default function AppointmentForm() {
                                 id="lastName"
                                 label="Фамилия"
                                 name="lastName"
+                                onChange={(event) => {
+                                    setVisitation({...visitation,
+                                        patient: {...visitation.patient, lastName: event.target.value}});
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -101,6 +134,10 @@ export default function AppointmentForm() {
                                 id="snils"
                                 label="СНИЛС"
                                 name="snils"
+                                onChange={(event) => {
+                                    setVisitation({...visitation,
+                                        patient: {...visitation.patient, snils: event.target.value}});
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -110,6 +147,10 @@ export default function AppointmentForm() {
                                 name="phoneNumber"
                                 label="Номер телефона"
                                 id="phoneNumber"
+                                onChange={(event) => {
+                                    setVisitation({...visitation,
+                                        patient: {...visitation.patient, phoneNumber: event.target.value}});
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -118,7 +159,7 @@ export default function AppointmentForm() {
                                 fullWidth
                                 id="medicalService"
                                 onChange={(event, value) => {
-                                    setSelectedService(value);
+                                    setVisitation({...visitation, medicalService: value});
                                 }}
                                 options={services}
                                 getOptionLabel={option => option.name}
@@ -136,7 +177,7 @@ export default function AppointmentForm() {
                                 fullWidth
                                 id="staff"
                                 onChange={(event, value) => {
-                                    setSelectedStaff(value);
+                                    setVisitation({...visitation, staff: value});
                                 }}
                                 options={staffs}
                                 getOptionLabel={option => {
@@ -154,14 +195,20 @@ export default function AppointmentForm() {
                         </Grid>
                         <Grid item xs={12}>
                             <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"ru"}>
-                                <DateTimePicker label="Дата и время записи"/>
+                                <DateTimePicker
+                                    timezone={"system"}
+                                    label="Дата и время записи"
+                                    onChange={(value) => {
+                                        setVisitation({...visitation, dateTime: value});
+                                    }}
+                                />
                             </LocalizationProvider>
                         </Grid>
                     </Grid>
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
+                        onClick={handleSubmit}
                         sx={{mt: 3, mb: 2}}
                     >
                         Записаться
