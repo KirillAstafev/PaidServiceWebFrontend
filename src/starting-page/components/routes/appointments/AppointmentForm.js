@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import {Autocomplete} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import axios from "axios";
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {AdapterLuxon} from "@mui/x-date-pickers/AdapterLuxon";
 
 export function AppointmentForm() {
     const [services, setServices] = useState([]);
@@ -23,7 +23,7 @@ export function AppointmentForm() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [staff, setStaff] = useState(null);
     const [medicalService, setMedicalService] = useState(null);
-    const [dateTime, setDateTime] = useState(null);
+    const [selectedDateTime, setSelectedDateTime] = useState(null);
 
     useEffect(() => {
         loadServices();
@@ -55,7 +55,7 @@ export function AppointmentForm() {
             },
             staff: staff,
             medicalService: medicalService,
-            dateTime: dateTime
+            dateTime: selectedDateTime?.toISO({includeOffset: false})
         };
 
         try {
@@ -191,13 +191,11 @@ export function AppointmentForm() {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={"ru"}>
                                 <DateTimePicker
                                     label="Дата и время записи"
-                                    value={dateTime}
-                                    onChange={(value) => {
-                                        setDateTime(value);
-                                    }}
+                                    value={selectedDateTime}
+                                    onChange={setSelectedDateTime}
                                 />
                             </LocalizationProvider>
                         </Grid>
